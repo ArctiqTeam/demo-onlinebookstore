@@ -1,9 +1,9 @@
 name: Export Dependabot Alerts
 
 on:
-  workflow_dispatch: # This allows you to manually trigger the workflow
+  workflow_dispatch: 
   schedule:
-    - cron: '0 0 * * 0' # This will run the workflow every Sunday at midnight
+    - cron: '0 0 * * 0'
 
 jobs:
   export-alerts:
