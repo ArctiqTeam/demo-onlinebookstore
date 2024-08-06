@@ -1,0 +1,38 @@
+name: Fetch Snyk Reports
+
+on: [workflow_dispatch]
+
+jobs:
+  fetch-reports:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install requests library
+      run: pip install requests
+
+    - name: Fetch and Merge Snyk Reports
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        SNYK_ORG_ID: ${{ secrets.SNYK_ORG_ID }}
+        SNYK_PROJECT_IDS: ${{ secrets.SNYK_PROJECT_IDS }}
+      run: |
+        python3 ./Matching_scripts/fetch_snyk_reports.py
+
+    - name: Upload Individual Snyk Reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: individual_snyk_project_issues
+        path: snyk_project_*_issues.json
+
+    - name: Upload Merged Snyk Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: merged_snyk_project_issues
+        path: merged_snyk_project_issues.json
