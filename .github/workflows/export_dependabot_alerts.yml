@@ -1,0 +1,37 @@
+name: Export Dependabot Alerts
+
+on:
+  workflow_dispatch: # This allows you to manually trigger the workflow
+  schedule:
+    - cron: '0 0 * * 0' # This will run the workflow every Sunday at midnight
+
+jobs:
+  export-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Export Dependabot alerts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          python export_dependabot_alerts.py
+
+      - name: Upload dependabot alerts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dependabot_alerts
+          path: dependabot_alerts.json
