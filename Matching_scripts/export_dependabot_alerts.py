@@ -5,7 +5,7 @@ import os
 def main():
     repo_owner = os.getenv('GITHUB_REPOSITORY_OWNER')
     repo_name = os.getenv('GITHUB_REPOSITORY').split('/')[1]
-    github_token = os.getenv('GITHUB_TOKEN')
+    github_token = os.getenv('CODEQL_TOKEN')
 
     url = f'https://api.github.com/repos/{repo_owner}/{repo_name}/dependabot/alerts'
 
