@@ -29,7 +29,8 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          python ./Matching_scripts/export_dependabot_alerts.py
+          # python ./Matching_scripts/export_dependabot_alerts.py
+          python ./Matching_scripts/custom_export_dependabot.py
 
       - name: Upload dependabot alerts
         uses: actions/upload-artifact@v2
