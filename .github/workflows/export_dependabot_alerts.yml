@@ -24,7 +24,7 @@ jobs:
 
       - name: Export Dependabot alerts
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEQL_TOKEN: ${{ secrets.CODEQL_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
