@@ -36,4 +36,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dependabot_alerts
-          path: dependabot_alerts.json
+          path: dependabot_vulnerabilities.json
+          # path: dependabot_alerts.json
