@@ -30,9 +30,3 @@ jobs:
       with:
         name: individual_snyk_project_issues
         path: snyk_project_*_issues.json
-
-    - name: Upload Merged Snyk Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: merged_snyk_project_issues
-        path: merged_snyk_project_issues.json
