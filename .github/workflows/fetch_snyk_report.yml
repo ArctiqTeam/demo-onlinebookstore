@@ -21,7 +21,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         SNYK_ORG_ID: ${{ secrets.SNYK_ORG_ID }}
-        SNYK_PROJECT_IDS: ${{ secrets.SNYK_PROJECT_IDS }}
+        SNYK_PROJECT_ID: ${{ secrets.SNYK_PROJECT_ID }}
       run: |
         python3 ./Matching_scripts/fetch_snyk_reports.py
 
