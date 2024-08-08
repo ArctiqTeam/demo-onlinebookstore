@@ -16,6 +16,22 @@ import com.bittercode.service.BookService;
 import com.bittercode.service.impl.BookServiceImpl;
 import com.bittercode.util.StoreUtil;
 
+import com.bittercode.model.Book;
+import com.bittercode.service.BookService;
+import com.bittercode.service.impl.BookServiceImpl;
+import com.bittercode.util.HTMLUtils;
+import com.bittercode.util.StoreUtil;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 public class StoreBookServlet extends HttpServlet {
 
     // book service for database operations and logics
@@ -33,10 +49,6 @@ public class StoreBookServlet extends HttpServlet {
             return;
         }
         try {
-
-            // Add/Remove Item from the cart if requested
-            // store the comma separated bookIds of cart in the session
-            // StoreUtil.updateCartItems(req);
 
             RequestDispatcher rd = req.getRequestDispatcher("SellerHome.html");
             rd.include(req, res);
@@ -78,18 +90,15 @@ public class StoreBookServlet extends HttpServlet {
 
     public String getRowData(Book book) {
         return "    <tr>\r\n"
-                + "      <th scope=\"row\">" + book.getBarcode() + "</th>\r\n"
-                + "      <td>" + book.getName() + "</td>\r\n"
-                + "      <td>" + book.getAuthor() + "</td>\r\n"
+                + "      <th scope=\"row\">" + HTMLUtils.escapeHtml(book.getBarcode()) + "</th>\r\n"
+                + "      <td>" + HTMLUtils.escapeHtml(book.getName()) + "</td>\r\n"
+                + "      <td>" + HTMLUtils.escapeHtml(book.getAuthor()) + "</td>\r\n"
                 + "      <td><span>&#8377;</span> " + book.getPrice() + "</td>\r\n"
-                + "      <td>"
-                + book.getQuantity()
-                + "      </td>\r\n"
+                + "      <td>" + book.getQuantity() + "</td>\r\n"
                 + "      <td><form method='post' action='updatebook'>"
-                + "          <input type='hidden' name='bookId' value='" + book.getBarcode() + "'/>"
+                + "          <input type='hidden' name='bookId' value='" + HTMLUtils.escapeHtml(book.getBarcode()) + "'/>"
                 + "          <button type='submit' class=\"btn btn-success\">Update</button>"
                 + "          </form>"
                 + "    </tr>\r\n";
     }
-
 }
